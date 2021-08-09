@@ -18,30 +18,23 @@ Run() {
 	ENDPOINT=https://$MASTODON_HOST/oauth/token
 	CLIENT_ID="$(cat app.json | jq -r '.client_id')"
 	CLIENT_SECRET="$(cat app.json | jq -r '.client_secret')"
-	USERNAME=$(cat user.tsv | cut -f1)
+#	REDIRECT_URI="$(cat app.json | jq -r '.redirect_uri')"
+#	USERNAME=$(cat user.tsv | cut -f1)
 	EMAIL=$(cat user.tsv | cut -f2)
 	PASSWORD=$(cat user.tsv | cut -f3)
 	SCOPE='read write follow'
-#	REQ_JSON="{\"client_id\": \"$CLIENT_ID\", \"client_secret\": \"$CLIENT_SECRET\", \"grant_type\": \"password\", \"username\": \"$EMAIL\", \"password\": \"$PASSWORD\", \"scope\": \"$SCOPE\"}"
-#	echo $REQ_JSON
-#	return
-#	GetToken() {
-#		curl -H "Content-Type: application/json" \
-#		  -X POST -sS $ENDPOINT \
-#		  -d "$REQ_JSON" \
-#		  -o token.json
-#	}
 	GetToken() {
 		curl -X POST -sS $ENDPOINT \
 		  -d "client_id=$(UrlEncode $CLIENT_ID)" \
 		  -d "client_secret=$(UrlEncode $CLIENT_SECRET)" \
 		  -d "grant_type=password" \
-		  -d "username=$(UrlEncode $USERNAME)" \
+		  -d "username=$(UrlEncode $EMAIL)" \
 		  -d "password=$(UrlEncode $PASSWORD)" \
 		  -d "scope=$(UrlEncode $SCOPE)" \
 		  -o token.json
 	}
 	GetToken
-	cat token.json | jq -r '.access_token' |> token.txt
+	cat token.json | jq -r '.access_token' > token.txt
+#	cat token.json | jq -r '.access_token' |> token.txt
 }
 Run "$@"
