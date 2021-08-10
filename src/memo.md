@@ -8,6 +8,18 @@
 
 　パラメータ`username`にアカウント登録したときのメールアドレスをセットするとよい。ユーザ名では上記エラーになる。
 
+## スコープ設定
+
+* https://mstdn.jp/web/statuses/106730477288142271
+
+　Mastodon の API /api/v1/apps と /oauth/token でスコープが必ず read のみになってしまう。（デフォルト値）
+
+* https://docs.joinmastodon.org/methods/apps/
+* https://docs.joinmastodon.org/methods/apps/oauth/
+
+　原因はscopeやscopes引数をURLエンコードしていたせい。
+　スペースを含めてエンコードせずそのまま渡したら成功した。
+
 # 返信する
 
 　既存のtootに返信したい。このときtootのidが必要。
