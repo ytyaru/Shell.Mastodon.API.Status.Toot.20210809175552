@@ -9,6 +9,7 @@ Run() {
 	THIS="$(realpath "${BASH_SOURCE:-0}")"; HERE="$(dirname "$THIS")"; PARENT="$(dirname "$HERE")"; THIS_NAME="$(basename "$THIS")"; APP_ROOT="$PARENT";
 	cd "$HERE"
 	[ -f token.json ] && return
+	[ ! -f user.tsv ] && { echo 'Not found user.tsv'; exit 1; }
 	UrlEncode() { echo -n "$1" | python -c 'import sys, urllib; print urllib.quote(sys.stdin.read()),'; }
 	IsExistCmd() { type $1 >/dev/null 2>&1; }
 	Install() { sudo apt install -y $1; }
@@ -22,7 +23,7 @@ Run() {
 #	USERNAME=$(cat user.tsv | cut -f1)
 	EMAIL=$(cat user.tsv | cut -f2)
 	PASSWORD=$(cat user.tsv | cut -f3)
-	SCOPE='read write follow'
+	SCOPE='read write follow push'
 	GetToken() {
 		curl -X POST -sS $ENDPOINT \
 		  -d "client_id=$(UrlEncode $CLIENT_ID)" \
@@ -30,7 +31,7 @@ Run() {
 		  -d "grant_type=password" \
 		  -d "username=$(UrlEncode $EMAIL)" \
 		  -d "password=$(UrlEncode $PASSWORD)" \
-		  -d "scope=$(UrlEncode $SCOPE)" \
+		  -d "scope=$SCOPE" \
 		  -o token.json
 	}
 	GetToken
