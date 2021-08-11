@@ -37,6 +37,9 @@
 引数|型|概要
 ----|--|----
 `status`|string|Toot本文。
+
+引数|型|概要
+----|--|----
 `in_reply_to_id`|string|指定したTootIDへのリプライ(返信)するときに指定する。
 `visibility`|string|公開範囲。`public`, `unlisted`, `private`, `direct`。
 `sensitive`|boolean|警告するか否か。

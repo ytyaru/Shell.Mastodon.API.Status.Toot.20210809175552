@@ -7,7 +7,7 @@ set -Ceu
 Run() {
 	THIS="$(realpath "${BASH_SOURCE:-0}")"; HERE="$(dirname "$THIS")"; PARENT="$(dirname "$HERE")"; THIS_NAME="$(basename "$THIS")"; APP_ROOT="$PARENT";
 	cd "$HERE"
-	local EDITOR=vim
+	local EDITOR=pluma
 	QuickEdit() (  trap 'rm /tmp/work/temp$$' exit; $EDITOR /tmp/work/temp$$ >/dev/tty; cat /tmp/work/temp$$ )
 	UrlEncode() { python -c 'import sys, urllib; print urllib.quote(sys.stdin.read()),'; }
 	AccessToken() { cat 'token.txt'; }
