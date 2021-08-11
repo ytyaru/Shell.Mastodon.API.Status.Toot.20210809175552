@@ -1,0 +1,16 @@
+　マストドンAPI。トゥートする。
+Parameters:
+  stdin  status          string   本文。
+  -r     in_reply_to_id  string   指定したIDをもつトゥートへの返信になる。
+  -s     sensitive       boolean  閲覧注意するか否か。
+  -S     spoiler_text    string   閲覧注意をうながすテキスト。
+  -v     visibility      string   表示範囲。public, unlisted, private, direct。
+  -d     scheduled_at    string   予約投稿する日時。最低でも5分後。`yyyy-mm-ddTHH:MM:SS+0900`
+  -l     language        string   言語コード。ISO-639。
+  -m     media_ids       [number] media APIの応答で得たid。カンマ区切り。
+  -p     poll_options    [string] 質問の答え。カンマ区切り。
+  -P     poll_expires_in number   質問が有効な時間（秒）。
+  -M     poll_multiple   boolean  複数の質問をするか否か。
+Documents:
+  https://docs.joinmastodon.org/methods/statuses/
+  https://docs.joinmastodon.org/methods/statuses/media/
